@@ -1,0 +1,20 @@
+{
+  "name": "drawby",
+  "version": "1.0.0",
+  "description": "그림은 내 취미: 드로비",
+  "main": "index.js",
+  "scripts": {
+    "dev": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kunholee98/DrawBy.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kunholee98/DrawBy/issues"
+  },
+  "homepage": "https://github.com/kunholee98/DrawBy#readme"
+}
