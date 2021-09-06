@@ -9,3 +9,54 @@ datasource db {
 generator client {
   provider = "prisma-client-js"
 }
+
+model User{
+  id Int @id @default(autoincrement()) 
+  username String @unique
+  password String
+  email String?
+  phoneNumber String?
+  avatar String?
+  bio String?
+}
+
+model Picture{
+  id Int @id @default(autoincrement())
+  name String
+  caption String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Hashtag{
+  id Int @id @default(autoincrement())
+  hashtagName String
+}
+
+model Genre{
+  id Int @id @default(autoincrement())
+  genreName String  
+}
+
+model Comment {
+  id Int @id @default(autoincrement())
+  payload String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model NestedComment {
+  id Int @id @default(autoincrement())
+  payload String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Room {
+  id Int @id @default(autoincrement())
+}
+
+model Message {
+  id Int @id @default(autoincrement())
+  payload String
+}

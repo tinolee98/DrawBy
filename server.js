@@ -5,19 +5,28 @@ import express from "express";
 import http from "http";
 import { typeDefs, resolvers } from "./schema";
 
-async; //여기서부터 다시하세용~~
-const PORT = process.env.PORT;
-const app = express();
-const httpServer = http.createServer(app);
+async function startApolloServer() {
+  const PORT = process.env.PORT;
+  const app = express();
+  const httpServer = http.createServer(app);
 
-const apollo = new ApolloServer({
-  typeDefs,
-  resolvers,
-  plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
-});
+  const apollo = new ApolloServer({
+    typeDefs,
+    resolvers,
+    plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+  });
 
-await server.start;
-
+  await apollo.start();
+  apollo.applyMiddleware({
+    app,
+    path: "/",
+  });
+  await new Promise((resolve) => httpServer.listen({ port: PORT }, resolve));
+  console.log(
+    `🚀 Server ready at http://localhost:${PORT}${apollo.graphqlPath}`
+  );
+}
+startApolloServer();
 // require("dotenv").config();
 // import express from "express";
 // import { typeDefs, resolvers } from "./schema";
