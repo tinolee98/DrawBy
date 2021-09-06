@@ -6,5 +6,8 @@ export default gql`
     username: String!
     password: String!
     email: String!
+    phoneNumber: String
+    avatar: String
+    bio: String
   }
 `;
