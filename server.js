@@ -20,7 +20,7 @@ async function startApolloServer() {
   apollo.applyMiddleware({
     app,
     path: "/",
-    // context 부분 추가 필요
+    // context 부분 추가 필요 (httpServer 사용할 때 header 읽는 법 까먹음.. 복습 필요)
   });
   await new Promise((resolve) => httpServer.listen({ port: PORT }, resolve));
   console.log(

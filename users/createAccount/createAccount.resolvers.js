@@ -1,4 +1,4 @@
-import { exists } from "fs";
+import * as bcrypt from "bcrypt";
 import client from "../../client";
 
 export default {
@@ -21,10 +21,11 @@ export default {
           error: "username is already existed",
         };
       }
+      const uglyPW = await bcrypt.hash(password, 10);
       await client.user.create({
         data: {
           username,
-          password,
+          password: uglyPW,
           email,
           phoneNumber,
           avatar,
