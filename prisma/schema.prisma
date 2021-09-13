@@ -14,33 +14,76 @@ model User{
   id Int @id @default(autoincrement()) 
   username String @unique
   password String
-  email String?
+  email String
   phoneNumber String?
   avatar String?
   bio String?
+  pictures Picture[]
+  comments Comment[]
+  bookmarks Bookmark[]
+  hashtags Hashtag[]
+  genres Genre[]
+  rooms Room[]
+  messages Message[]
+  likeComs LikeCom[]
+  likePics LikePic[]
+  feed Feed[]
+  readMessage ReadMessage[]
+  follower User[] @relation("FollowRelation")
+  following User[] @relation("FollowRelation")
 }
 
 model Picture{
   id Int @id @default(autoincrement())
+  user User @relation(fields: [userId], references: [id])
+  userId Int
+  comments Comment[]
   name String
   caption String?
+  bookmarks Bookmark[]
+  hashtags Hashtag[]
+  genres Genre[]
+  likePic LikePic[]
+  inFeed Feed[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+// Feed는 following user의 Picture의 목록을 보여주면 되지 않을까? read 여부는 어떻게 판별할 수 있을지는 고민좀..
+model Feed {
+  user User @relation(fields: [userId], references: [id])
+  userId Int
+  picture Picture @relation(fields: [userId], references: [id])
+  pictureId Int
+  read Boolean
+  @@id([userId, pictureId])
 }
 
 model Hashtag{
   id Int @id @default(autoincrement())
   hashtagName String
+  users User[]
+  pictures Picture[]
 }
 
 model Genre{
   id Int @id @default(autoincrement())
   genreName String  
+  users User[]
+  pictures Picture[]
 }
 
 model Comment {
   id Int @id @default(autoincrement())
   payload String
+  user User @relation(fields: [userId], references: [id])
+  userId Int
+  picture Picture @relation(fields: [pictureId], references: [id])
+  pictureId Int
+  nestedComments Comment[] @relation("NestRelation")
+  nest Comment? @relation("NestRelation", fields: [commentId], references: [id])
+  commentId Int @default(0)
+  likeCom LikeCom[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -51,12 +94,54 @@ model NestedComment {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+// NestedComment를 하나로 합쳤기 때문에 필요없음. 다만, 둘을 분리해야할 수도 있는 상황에 대비하여 굳이 삭제는 안함.
 
 model Room {
   id Int @id @default(autoincrement())
+  users User[]
+  messages Message[]
 }
 
 model Message {
   id Int @id @default(autoincrement())
   payload String
+  users User[] @relation(fields: [userId], references: [id])
+  userId Int
+  room Room @relation(fields: [roomId], references: [id])
+  roomId Int
+  isRead ReadMessage[]
+  createdAt DateTime @default(now())
+}
+
+model ReadMessage {
+  message Message @relation(fields: [messageId], references: [id])
+  messageId Int
+  user User @relation(fields: [userId], references: [id])
+  userId Int
+  read Boolean
+  @@id([messageId, userId])
+}
+
+model Bookmark {
+  id Int @id @default(autoincrement())
+  user User @relation(fields: [userId], references: [id])
+  userId Int
+  picture Picture @relation(fields: [pictureId], references: [id])
+  pictureId Int
+}
+
+model LikeCom {
+  user User @relation(fields: [userId], references: [id])
+  userId  Int
+  comment Comment @relation(fields: [commentId], references: [id])
+  commentId Int
+  @@id([userId, commentId])
+}
+
+model LikePic {
+  user User @relation(fields: [userId], references: [id])
+  userId  Int
+  picture Picture @relation(fields: [pictureId], references: [id])
+  pictureId Int
+  @@id([userId, pictureId])
 }
