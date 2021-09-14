@@ -1,3 +1,10 @@
 export default {
-  User: {},
+  User: {
+    isMe: ({ id }, _, { loggedInUser }) => {
+      if (id == loggedInUser.id) {
+        return true;
+      }
+      return false;
+    },
+  },
 };

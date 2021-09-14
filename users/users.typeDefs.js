@@ -9,5 +9,6 @@ export default gql`
     phoneNumber: String
     avatar: String
     bio: String
+    isMe: Boolean!
   }
 `;
