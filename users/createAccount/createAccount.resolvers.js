@@ -4,7 +4,7 @@ import client from "../../client";
 export default {
   Mutation: {
     createAccount: async (
-      root,
+      _,
       { username, password, email, phoneNumber, avatar, bio }
     ) => {
       const existed = await client.user.findUnique({
