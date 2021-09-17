@@ -4,6 +4,7 @@ import { ApolloServer } from "apollo-server-express";
 import express from "express";
 import http from "http";
 import { typeDefs, resolvers } from "./schema";
+import { getUser } from "./users/users.utils";
 
 async function startApolloServer() {
   const PORT = process.env.PORT;
@@ -14,6 +15,9 @@ async function startApolloServer() {
     typeDefs,
     resolvers,
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+    context: async ({ req }) => ({
+      loggedInUser: await getUser(req.headers.authorization),
+    }),
   });
 
   await apollo.start();
