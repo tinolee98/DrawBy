@@ -1,3 +1,5 @@
+import client from "../client";
+
 export default {
   User: {
     isMe: ({ id }, _, { loggedInUser }) => {
@@ -5,6 +7,28 @@ export default {
         return true;
       }
       return false;
+    },
+    totalFollowers: async ({ id }) => {
+      return await client.user.count({
+        where: {
+          follower: {
+            some: {
+              id,
+            },
+          },
+        },
+      });
+    },
+    totalFollowings: async ({ id }) => {
+      return await client.user.count({
+        where: {
+          following: {
+            some: {
+              id,
+            },
+          },
+        },
+      });
     },
   },
 };
