@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 import client from "../client";
+import * as bcrypt from "bcrypt";
 
 export const getUser = async (authorization) => {
   if (!authorization) {
@@ -25,3 +26,7 @@ export function protectedResolver(ourResolver) {
     return ourResolver(root, args, context, info);
   };
 }
+
+//export const convertPassword = async (password) => {
+//  return await bcrypt.c
+//}

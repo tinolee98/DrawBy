@@ -35,6 +35,7 @@ model User{
 
 model Picture{
   id Int @id @default(autoincrement())
+  file String
   user User @relation(fields: [userId], references: [id])
   userId Int
   comments Comment[]
@@ -53,7 +54,7 @@ model Picture{
 model Feed {
   user User @relation(fields: [userId], references: [id])
   userId Int
-  picture Picture @relation(fields: [userId], references: [id])
+  picture Picture @relation(fields: [pictureId], references: [id])
   pictureId Int
   read Boolean
   @@id([userId, pictureId])
