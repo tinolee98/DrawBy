@@ -3,6 +3,7 @@ import { gql } from "apollo-server-express";
 export default gql`
   type Picture {
     id: Int!
+    file: String!
     author: User!
     name: String!
     caption: String
