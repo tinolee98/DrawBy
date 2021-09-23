@@ -7,7 +7,6 @@ export default {
       async (_, { file, name, caption }, { loggedInUser }) => {
         const upload = await client.picture.create({
           data: {
-            id,
             userId: loggedInUser.id,
             file,
             name,
