@@ -20,6 +20,7 @@ model User{
   bio String?
   pictures Picture[]
   comments Comment[]
+  nestedComments NestedComment[]
   bookmarks Bookmark[]
   hashtags Hashtag[]
   genres Genre[]
@@ -27,6 +28,7 @@ model User{
   messages Message[]
   likeComs LikeCom[]
   likePics LikePic[]
+  likeNestComs LikeNestCom[]
   feed Feed[]
   readMessage ReadMessage[]
   follower User[] @relation("FollowRelation")
@@ -39,6 +41,7 @@ model Picture{
   user User @relation(fields: [userId], references: [id])
   userId Int
   comments Comment[]
+  nestedComments NestedComment[]
   name String
   caption String?
   bookmarks Bookmark[]
@@ -81,9 +84,7 @@ model Comment {
   userId Int
   picture Picture @relation(fields: [pictureId], references: [id])
   pictureId Int
-  nestedComments Comment[] @relation("NestRelation")
-  nest Comment? @relation("NestRelation", fields: [commentId], references: [id])
-  commentId Int @default(0)
+  Comments NestedComment[]
   likeCom LikeCom[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -92,6 +93,13 @@ model Comment {
 model NestedComment {
   id Int @id @default(autoincrement())
   payload String
+  picture Picture @relation(fields: [pictureId], references: id)
+  pictureId Int
+  comment Comment @relation(fields: [commentId], references: id)
+  commentId Int
+  user User @relation(fields: [userId], references: [id])
+  userId Int
+  likeNestCom LikeNestCom[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -137,6 +145,14 @@ model LikeCom {
   comment Comment @relation(fields: [commentId], references: [id])
   commentId Int
   @@id([userId, commentId])
+}
+
+model LikeNestCom {
+  user User @relation(fields: [userId], references: [id])
+  userId  Int
+  nestedComment NestedComment @relation(fields: [nestedCommentId], references: [id])
+  nestedCommentId Int
+  @@id([userId, nestedCommentId])
 }
 
 model LikePic {

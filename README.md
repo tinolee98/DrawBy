@@ -22,8 +22,8 @@
 - [x] Upload Picture (hashtag, genre 추가 필요)
 - [x] Delete Picture (hashtag, genre 추가 필요)
 - [x] Edit Picture (hashtag, genre 추가 필요)
-- [ ] Toggle Like 2 Picture
-- [ ] Comment
-- [ ] Nested Comment
+- [x] Toggle Like 2 Picture
+- [x] Comment
+- [x] Nested Comment
 - [ ] Toggle Like 2 Comment
 - [ ] File Upload & Connect 2 EC2 in AWS
