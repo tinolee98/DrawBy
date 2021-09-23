@@ -4,7 +4,7 @@
   "description": "그림은 내 취미: 드로비",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --exec babel-node server --delay 2s",
+    "dev": "nodemon --exec babel-node server --delay 1s",
     "migrate": "npx prisma migrate dev",
     "studio": "npx prisma studio",
     "preinstall": "npx npm-force-resolutions"
@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/kunholee98/DrawBy#readme",
   "dependencies": {
-    "@prisma/client": "^3.0.2",
+    "@prisma/client": "^3.1.1",
     "apollo-server-core": "^3.3.0",
     "apollo-server-express": "^3.3.0",
     "bcrypt": "^5.0.1",
@@ -37,6 +37,6 @@
     "@babel/preset-env": "^7.15.0",
     "@graphql-tools/load-files": "^6.4.0",
     "nodemon": "^2.0.12",
-    "prisma": "^3.0.2"
+    "prisma": "^3.1.1"
   }
 }
