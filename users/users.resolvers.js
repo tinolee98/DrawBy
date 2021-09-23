@@ -8,8 +8,8 @@ export default {
       }
       return false;
     },
-    totalFollowers: async ({ id }) => {
-      return await client.user.count({
+    totalFollowers: ({ id }) => {
+      return client.user.count({
         where: {
           follower: {
             some: {
@@ -19,8 +19,8 @@ export default {
         },
       });
     },
-    totalFollowings: async ({ id }) => {
-      return await client.user.count({
+    totalFollowings: ({ id }) => {
+      return client.user.count({
         where: {
           following: {
             some: {
@@ -29,6 +29,17 @@ export default {
           },
         },
       });
+    },
+    like2Pic: async ({ id }) => {
+      const pictures = await client.likePic.findMany({
+        where: {
+          userId: id,
+        },
+        select: {
+          picture: true,
+        },
+      });
+      return pictures.map((picture) => picture.picture);
     },
   },
 };

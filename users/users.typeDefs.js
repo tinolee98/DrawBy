@@ -10,6 +10,7 @@ export default gql`
     avatar: String
     bio: String
     isMe: Boolean!
+    like2Pic: [Picture]
     followers: [User]
     followings: [User]
     totalFollowers: Int!
