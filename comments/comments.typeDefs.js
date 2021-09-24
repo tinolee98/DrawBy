@@ -8,7 +8,6 @@ export default gql`
     picture: Picture!
     comment: Comment
     nestedComments: [Comment]
-    isNested: Boolean!
     createdAt: String!
     updatedAt: String!
   }

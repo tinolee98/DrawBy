@@ -25,5 +25,6 @@
 - [x] Toggle Like 2 Picture
 - [x] Comment
 - [x] Nested Comment
+- [ ] Secret Comment
 - [ ] Toggle Like 2 Comment
 - [ ] File Upload & Connect 2 EC2 in AWS
