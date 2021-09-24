@@ -13,16 +13,6 @@ export default gql`
     createdAt: String!
     updatedAt: String!
   }
-
-  type Comment {
-    id: Int!
-    payload: String!
-    author: User!
-    picture: Picture!
-    createdAt: String!
-    updatedAt: String!
-  }
-
   type LikePic {
     id: Int!
     user: User!
