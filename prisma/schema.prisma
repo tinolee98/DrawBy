@@ -8,6 +8,7 @@ datasource db {
 
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = "referentialActions"
 }
 
 model User{
@@ -38,7 +39,7 @@ model User{
 model Picture{
   id Int @id @default(autoincrement())
   file String
-  user User @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId Int
   comments Comment[]
   nestedComments NestedComment[]
@@ -55,9 +56,9 @@ model Picture{
 
 // Feed는 following user의 Picture의 목록을 보여주면 되지 않을까? read 여부는 어떻게 판별할 수 있을지는 고민좀..
 model Feed {
-  user User @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId Int
-  picture Picture @relation(fields: [pictureId], references: [id])
+  picture Picture @relation(fields: [pictureId], references: [id], onDelete: Cascade)
   pictureId Int
   read Boolean
   @@id([userId, pictureId])
@@ -80,9 +81,9 @@ model Genre{
 model Comment {
   id Int @id @default(autoincrement())
   payload String
-  user User @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId Int
-  picture Picture @relation(fields: [pictureId], references: [id])
+  picture Picture @relation(fields: [pictureId], references: [id], onDelete: Cascade)
   pictureId Int
   Comments NestedComment[]
   likeCom LikeCom[]
@@ -93,11 +94,11 @@ model Comment {
 model NestedComment {
   id Int @id @default(autoincrement())
   payload String
-  picture Picture @relation(fields: [pictureId], references: id)
+  picture Picture @relation(fields: [pictureId], references: id, onDelete: Cascade)
   pictureId Int
-  comment Comment @relation(fields: [commentId], references: id)
+  comment Comment @relation(fields: [commentId], references: id, onDelete: Cascade)
   commentId Int
-  user User @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId Int
   likeNestCom LikeNestCom[]
   createdAt DateTime @default(now())
@@ -133,32 +134,32 @@ model ReadMessage {
 
 model Bookmark {
   id Int @id @default(autoincrement())
-  user User @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId Int
-  picture Picture @relation(fields: [pictureId], references: [id])
+  picture Picture @relation(fields: [pictureId], references: [id], onDelete: Cascade)
   pictureId Int
 }
 
 model LikeCom {
-  user User @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId  Int
-  comment Comment @relation(fields: [commentId], references: [id])
+  comment Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
   commentId Int
   @@id([userId, commentId])
 }
 
 model LikeNestCom {
-  user User @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId  Int
-  nestedComment NestedComment @relation(fields: [nestedCommentId], references: [id])
+  nestedComment NestedComment @relation(fields: [nestedCommentId], references: [id], onDelete: Cascade)
   nestedCommentId Int
   @@id([userId, nestedCommentId])
 }
 
 model LikePic {
-  user User @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId  Int
-  picture Picture @relation(fields: [pictureId], references: [id])
+  picture Picture @relation(fields: [pictureId], references: [id], onDelete: Cascade)
   pictureId Int
   @@id([userId, pictureId])
 }
