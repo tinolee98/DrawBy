@@ -11,4 +11,9 @@ export default gql`
     createdAt: String!
     updatedAt: String!
   }
+  type LikeCom {
+    id: Int!
+    user: User!
+    comment: Comment!
+  }
 `;
