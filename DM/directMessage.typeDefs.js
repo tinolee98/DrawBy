@@ -13,6 +13,8 @@ export default gql`
     id: Int!
     users: [User]
     messages: [Message]
+    latestMessage: String!
+    time: String!
   }
   type ReadMessage {
     id: Int!
