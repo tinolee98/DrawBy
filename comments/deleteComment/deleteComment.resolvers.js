@@ -13,15 +13,6 @@ export default {
       if (comment.userId != loggedInUser.id) {
         return { ok: false, error: "No authority to delete." };
       }
-      // cascade delete를 위해서 nested comment를 먼저 삭제
-      const deleteNestedComment = await client.nestedComment.deleteMany({
-        where: {
-          commentId: id,
-        },
-      });
-      if (!deleteNestedComment) {
-        return { ok: false, error: "Fail to delete nested comments." };
-      }
       const deleteComment = await client.comment.delete({
         where: { id },
       });
