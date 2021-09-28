@@ -26,5 +26,10 @@
 - [x] Comment
 - [x] Nested Comment
 - [ ] Secret Comment
-- [ ] Toggle Like 2 Comment
+- [x] Toggle Like 2 Comment
 - [ ] File Upload & Connect 2 EC2 in AWS
+
+### Repactoring 필요한 부분들
+
+1. NestedComment와 Comment의 resolvers가 비슷한 역할을 수행하고 있으므로 하나의 함수로 만들어서 쉽게 배포할 수 있는 형식이 더 좋을 듯.
+2.

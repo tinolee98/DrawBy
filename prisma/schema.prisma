@@ -115,9 +115,9 @@ model Room {
 model Message {
   id Int @id @default(autoincrement())
   payload String
-  users User[] @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id])
   userId Int
-  room Room @relation(fields: [roomId], references: [id])
+  room Room @relation(fields: [roomId], references: [id], onDelete: Cascade)
   roomId Int
   isRead ReadMessage[]
   createdAt DateTime @default(now())

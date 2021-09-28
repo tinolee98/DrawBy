@@ -27,17 +27,9 @@ export default {
           users: true,
         },
       });
-      //   const roomConnect = await client.room.update({
-      //     where: {
-      //       id: room.id,
-      //     },
-      //     data: {
-      //       users: {
-      //         connect: userIdList,
-      //       },
-      //     },
-      //   });
-      console.log(room);
+      if (!room) {
+        return { ok: false, error: "Fail to create a room." };
+      }
       return { ok: true };
     }),
   },
