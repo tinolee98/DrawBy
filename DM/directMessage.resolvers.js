@@ -33,4 +33,12 @@ export default {
       return room.messages[0].payload;
     },
   },
+  Message: {
+    unRead: async ({ id }) =>
+      client.readMessage.count({
+        where: {
+          messageId: id,
+        },
+      }),
+  },
 };

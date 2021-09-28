@@ -124,11 +124,10 @@ model Message {
 }
 
 model ReadMessage {
-  message Message @relation(fields: [messageId], references: [id])
+  message Message @relation(fields: [messageId], references: [id], onDelete: Cascade)
   messageId Int
-  user User @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId Int
-  read Boolean
   @@id([messageId, userId])
 }
 

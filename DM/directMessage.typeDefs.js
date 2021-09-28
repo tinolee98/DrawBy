@@ -6,6 +6,7 @@ export default gql`
     payload: String!
     author: User!
     room: Room!
+    unRead: Int!
     createdAt: String!
     updatedAt: String!
   }
