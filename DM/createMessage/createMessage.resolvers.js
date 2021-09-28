@@ -14,6 +14,9 @@ export default {
               },
             },
           },
+          include: {
+            users: true,
+          },
         });
         let newMessage = null;
         if (!room) {
@@ -37,6 +40,29 @@ export default {
         }
         if (!newMessage) {
           return { ok: false, error: "Fail to create a message." };
+        }
+        let newReadMessage = null;
+        for (let i = 0; i < room.users.length; i++) {
+          if (room.users[i].id == loggedInUser.id) {
+            continue;
+          }
+          newReadMessage = await client.readMessage.create({
+            data: {
+              user: {
+                connect: {
+                  id: room.users[i].id,
+                },
+              },
+              message: {
+                connect: {
+                  id: newMessage.id,
+                },
+              },
+            },
+          });
+          if (!newReadMessage) {
+            return { ok: false, error: "Fail to create a readMessage." };
+          }
         }
         return { ok: true };
       }

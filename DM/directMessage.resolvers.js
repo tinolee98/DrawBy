@@ -40,5 +40,15 @@ export default {
           messageId: id,
         },
       }),
+    author: async ({ id }) =>
+      client.user.findFirst({
+        where: {
+          messages: {
+            some: {
+              id,
+            },
+          },
+        },
+      }),
   },
 };
