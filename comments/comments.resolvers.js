@@ -10,5 +10,12 @@ export default {
         },
       });
     },
+    totalLike: async ({ id }) => {
+      return client.likeCom.count({
+        where: {
+          commentId: id,
+        },
+      });
+    },
   },
 };
