@@ -2,12 +2,39 @@ import client from "../client";
 
 export default {
   Query: {
-    search: async (_, { keyword }) => {
-      console.log(/keyword[a-zA-Z0-9ㄱ-힇]+/g);
-      // keyword로 시작하는 모든 유저, 해시태그, 장르의 목록을 얻어야함.
+    userSearch: async (_, { keyword }) => {
       return await client.user.findMany({
         where: {
-          username: keyword,
+          username: {
+            startsWith: { keyword },
+          },
+        },
+      });
+    },
+    hashtagSearch: async (_, { keyword }) => {
+      return await client.hashtag.findMany({
+        where: {
+          hashtagName: {
+            startsWith: { keyword },
+          },
+        },
+      });
+    },
+    genreSearch: async (_, { keyword }) => {
+      return await client.genre.findMany({
+        where: {
+          genreName: {
+            startsWith: { keyword },
+          },
+        },
+      });
+    },
+    pictureSearch: async (_, { keyword }) => {
+      return await client.picture.findMany({
+        where: {
+          name: {
+            startsWith: { keyword },
+          },
         },
       });
     },
