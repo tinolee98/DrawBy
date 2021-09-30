@@ -11,6 +11,9 @@ export default {
             file,
             name,
             caption,
+            hashtags: {
+              connectOrCreate: processHashtags(caption),
+            },
           },
         });
         if (!upload) {

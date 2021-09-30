@@ -5,13 +5,16 @@ export default {
   Mutation: {
     editPicture: protectedResolver(
       async (_, { id, name, caption }, { loggedInUser }) => {
-        const isMine = await client.picture.findFirst({
+        const oldPicture = await client.picture.findFirst({
           where: {
             id,
             userId: loggedInUser.id,
           },
+          include: {
+            hashtags: true,
+          },
         });
-        if (!isMine) {
+        if (!oldPicture) {
           return { ok: false, error: "No authority." };
         }
         const edit = await client.picture.update({
@@ -21,6 +24,10 @@ export default {
           data: {
             name,
             caption,
+            hashtags: {
+              disconnect: oldPicture.hashtags,
+              connectOrCreate: processHashtags(caption),
+            },
             //hashtag, genre 추가 필요
           },
         });
