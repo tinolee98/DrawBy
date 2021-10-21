@@ -17,15 +17,7 @@ async function startApolloServer() {
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
     context: async (ctx) => {
       const token = ctx.req.headers.authorization.split(" ")[1];
-      if (token !== "null") {
-        return {
-          loggedInUser: await getUser(token),
-        };
-      } else {
-        return {
-          loggedInUser: await getUser(null),
-        };
-      }
+      loggedInUser: await getUser(token);
     },
   });
 

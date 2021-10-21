@@ -20,7 +20,6 @@ export const getUser = async (authorization) => {
     }
     return user;
   } catch (e) {
-    console.log(e);
     return null;
   }
 };
