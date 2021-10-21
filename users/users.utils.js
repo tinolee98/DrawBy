@@ -6,16 +6,23 @@ export const getUser = async (authorization) => {
   if (!authorization) {
     return null;
   }
-  const { id } = await jwt.verify(authorization, process.env.SECRET_KEY);
-  const user = await client.user.findUnique({
-    where: {
-      id,
-    },
-  });
-  if (!user) {
+  let userId = null;
+  try {
+    const { id } = jwt.verify(authorization, process.env.SECRET_KEY);
+    userId = id;
+    const user = await client.user.findUnique({
+      where: {
+        id,
+      },
+    });
+    if (!user) {
+      return null;
+    }
+    return user;
+  } catch (e) {
+    console.log(e);
     return null;
   }
-  return user;
 };
 
 export function protectedResolver(ourResolver) {

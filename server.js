@@ -15,15 +15,24 @@ async function startApolloServer() {
     typeDefs,
     resolvers,
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
-    context: async ({ req }) => ({
-      loggedInUser: await getUser(req.headers.authorization),
-    }),
+    context: async (ctx) => {
+      const token = ctx.req.headers.authorization.split(" ")[1];
+      if (token !== "null") {
+        return {
+          loggedInUser: await getUser(token),
+        };
+      } else {
+        return {
+          loggedInUser: await getUser(null),
+        };
+      }
+    },
   });
 
   await apollo.start();
   apollo.applyMiddleware({
     app,
-    path: "/",
+    path: "/graphql",
     // context 부분 추가 필요 (httpServer 사용할 때 header 읽는 법 까먹음.. 복습 필요)
   });
   await new Promise((resolve) => httpServer.listen({ port: PORT }, resolve));
