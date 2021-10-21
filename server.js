@@ -5,6 +5,7 @@ import express from "express";
 import http from "http";
 import { typeDefs, resolvers } from "./schema";
 import { getUser } from "./users/users.utils";
+import { graphqlUploadExpress } from "graphql-upload";
 
 async function startApolloServer() {
   const PORT = process.env.PORT;
@@ -36,6 +37,8 @@ async function startApolloServer() {
   });
 
   await apollo.start();
+  app.use(graphqlUploadExpress());
+
   apollo.applyMiddleware({
     app,
     path: "/graphql",

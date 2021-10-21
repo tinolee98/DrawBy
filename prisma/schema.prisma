@@ -66,14 +66,14 @@ model Feed {
 
 model Hashtag{
   id Int @id @default(autoincrement())
-  hashtagName String
+  hashtagName String @unique
   users User[]
   pictures Picture[]
 }
 
 model Genre{
   id Int @id @default(autoincrement())
-  genreName String  
+  genreName String  @unique
   users User[]
   pictures Picture[]
 }

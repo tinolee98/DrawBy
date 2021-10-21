@@ -7,7 +7,7 @@ export default gql`
   }
   type Mutation {
     uploadPicture(
-      file: String!
+      file: Upload!
       name: String!
       caption: String
     ): UploadPictureResult!

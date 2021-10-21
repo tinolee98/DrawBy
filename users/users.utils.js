@@ -31,6 +31,7 @@ export function protectedResolver(ourResolver) {
       if (query) {
         return null;
       } else {
+        console.log(context.loggedInUser);
         return {
           ok: false,
           error: "Please log in to perform this action.",

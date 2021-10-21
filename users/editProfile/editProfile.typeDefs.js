@@ -7,12 +7,12 @@ export default gql`
   }
   type Mutation {
     editProfile(
-      id: Int!
       username: String
       password: String
-      avatar: String
+      avatar: Upload
       bio: String
       phoneNumber: String
     ): EditProfileResult!
   }
+  scalar Upload
 `;
