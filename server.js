@@ -10,6 +10,7 @@ import { graphqlUploadExpress } from "graphql-upload";
 async function startApolloServer() {
   const PORT = process.env.PORT;
   const app = express();
+  app.use(graphqlUploadExpress());
   const httpServer = http.createServer(app);
 
   const apollo = new ApolloServer({
@@ -29,6 +30,8 @@ async function startApolloServer() {
         };
       }
     },
+    playground: true,
+    introspection: true,
     // context: async (ctx) => {
     //   const token = ctx.req.headers.authorization.split(" ")[1];
     //   loggedInUser: await getUser(token);
@@ -37,7 +40,6 @@ async function startApolloServer() {
   });
 
   await apollo.start();
-  app.use(graphqlUploadExpress());
 
   apollo.applyMiddleware({
     app,

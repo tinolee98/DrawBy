@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/kunholee98/DrawBy#readme",
   "dependencies": {
+    "@apollo/client": "^3.4.16",
     "@prisma/client": "^3.1.1",
     "apollo-server-core": "^3.3.0",
     "apollo-server-express": "^3.3.0",
@@ -28,7 +29,7 @@
     "bcrypt": "^5.0.1",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
-    "graphql": "^15.5.3",
+    "graphql": "^15.6.1",
     "graphql-upload": "^12.0.0",
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0"
