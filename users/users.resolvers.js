@@ -8,7 +8,7 @@ export default {
       }
       return false;
     },
-    totalFollowers: ({ id }) => {
+    totalFollowings: ({ id }) => {
       return client.user.count({
         where: {
           follower: {
@@ -19,7 +19,7 @@ export default {
         },
       });
     },
-    totalFollowings: ({ id }) => {
+    totalFollowers: ({ id }) => {
       return client.user.count({
         where: {
           following: {
@@ -40,6 +40,28 @@ export default {
         },
       });
       return pictures.map((picture) => picture.picture);
+    },
+    followers: ({ id }) => {
+      return client.user.findMany({
+        where: {
+          following: {
+            some: {
+              id,
+            },
+          },
+        },
+      });
+    },
+    followings: ({ id }) => {
+      return client.user.findMany({
+        where: {
+          follower: {
+            some: {
+              id,
+            },
+          },
+        },
+      });
     },
   },
 };

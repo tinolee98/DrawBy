@@ -14,6 +14,10 @@ export const getUser = async (authorization) => {
       where: {
         id,
       },
+      include: {
+        follower: true,
+        following: true,
+      },
     });
     if (!user) {
       return null;
