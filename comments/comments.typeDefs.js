@@ -10,6 +10,7 @@ export default gql`
     nestedComments: [Comment]
     whoLikes: [User]
     totalLike: Int!
+    isMine: Boolean!
     createdAt: String!
     updatedAt: String!
   }
