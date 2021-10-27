@@ -8,13 +8,16 @@ export default gql`
     name: String!
     caption: String
     comments: [Comment]
+    totalComment: Int!
+    likes: [User]
     whoLikes: [User]
     totalLike: Int!
     createdAt: String!
     updatedAt: String!
+    isMine: Boolean!
+    isLiked: Boolean!
   }
   type LikePic {
-    id: Int!
     user: User!
     picture: Picture!
   }

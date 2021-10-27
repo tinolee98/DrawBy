@@ -27,10 +27,45 @@ export default {
         where: { id: author.userId },
       });
     },
+    comments: async ({ id }) => {
+      return client.picture.findUnique({ where: { id } }).comments();
+    },
+    totalComment: async ({ id }) => {
+      return await client.comment.count({
+        where: {
+          pictureId: id,
+        },
+      });
+    },
     totalLike: async ({ id }) => {
       return await client.likePic.count({
         where: { pictureId: id },
       });
+    },
+    isMine: async ({ userId }, _, { loggedInUser }) => {
+      if (!loggedInUser) {
+        return false;
+      }
+      return userId === loggedInUser.id;
+    },
+    isLiked: async ({ id }, _, { loggedInUser }) => {
+      if (!loggedInUser) {
+        console.log("loggedInUser fail");
+        return false;
+      }
+      const like = await client.likePic.findUnique({
+        where: {
+          userId_pictureId: {
+            pictureId: id,
+            userId: loggedInUser.id,
+          },
+        },
+      });
+      //console.log(like);
+      if (like) {
+        return true;
+      }
+      return false;
     },
   },
 };
