@@ -8,6 +8,7 @@ export default gql`
     picture: Picture!
     comment: Comment
     nestedComments: [Comment]
+    whoLikes: [User]
     totalLike: Int!
     createdAt: String!
     updatedAt: String!

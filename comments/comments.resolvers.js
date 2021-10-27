@@ -17,5 +17,17 @@ export default {
         },
       });
     },
+    whoLikes: async ({ id }) => {
+      const users = await client.likeCom.findMany({
+        where: {
+          commentId: id,
+        },
+        select: {
+          user: true,
+        },
+      });
+      const result = users.map((user) => user.user);
+      return result;
+    },
   },
 };
