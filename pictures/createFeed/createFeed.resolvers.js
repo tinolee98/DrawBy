@@ -5,15 +5,20 @@ export default {
   Mutation: {
     createFeed: protectedResolver(
       async (_, { pictureId }, { loggedInUser }) => {
-        for (let i = 0; i < loggedInUser.follower.length; i++) {
+        for (let i = 0; i < loggedInUser.follower.length + 1; i++) {
+          let userId = loggedInUser.follower[i].id;
+          if (i === loggedInUser.follower.length) {
+            userId = loggedInUser.id;
+          }
           const exist = await client.feed.findFirst({
             where: {
-              userId: loggedInUser.follower[i].id,
+              userId,
             },
             include: {
               user: true,
             },
           });
+
           if (exist) {
             continue;
           }
@@ -21,7 +26,7 @@ export default {
             data: {
               user: {
                 connect: {
-                  id: loggedInUser.follower[i].id,
+                  id: userId,
                 },
               },
               picture: {
