@@ -74,9 +74,9 @@ export default {
         }
 
         if (!newComment) {
-          return { ok: false, error: "Fail to reply." };
+          return { ok: false, error: "Fail to reply.", id: 0 };
         }
-        return { ok: true };
+        return { ok: true, id: newComment.id };
       }
     ),
   },
