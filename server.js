@@ -18,16 +18,20 @@ async function startApolloServer() {
     resolvers,
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
     context: async (ctx) => {
-      const token = ctx.req.headers.authorization.split(" ")[1];
-      if (ctx.req) {
-        return { loggedInUser: await getUser(token) };
-      } else {
-        const {
-          connection: { context },
-        } = ctx;
-        return {
-          loggedInUser: context.loggedInUser,
-        };
+      try {
+        const token = ctx.req.headers.authorization.split(" ")[1];
+        if (ctx.req) {
+          return { loggedInUser: await getUser(token) };
+        } else {
+          const {
+            connection: { context },
+          } = ctx;
+          return {
+            loggedInUser: context.loggedInUser,
+          };
+        }
+      } catch (e) {
+        return { loggedInUser: null };
       }
     },
     playground: true,
