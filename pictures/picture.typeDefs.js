@@ -9,7 +9,7 @@ export default gql`
     caption: String
     comments: [Comment]
     totalComment: Int!
-    likes: [User]
+    hashtags: [Hashtag]
     whoLikes: [User]
     totalLike: Int!
     createdAt: String!

@@ -8,7 +8,10 @@ export default {
     uploadPicture: protectedResolver(
       async (_, { file, name, caption }, { loggedInUser }) => {
         const fileUrl = await uploadToS3(file, loggedInUser.id, "pictures");
-
+        let hashtagsObj = [];
+        if (caption) {
+          hashtagsObj = processHashtags(caption);
+        }
         const upload = await client.picture.create({
           data: {
             user: {
@@ -19,9 +22,12 @@ export default {
             file: fileUrl,
             name,
             caption,
-            hashtags: {
-              connectOrCreate: processHashtags(caption),
-            },
+            ...(hashtagsObj.length > 0 && {
+              hashtags: {
+                connectOrCreate: hashtagsObj,
+              },
+            }),
+            //hastag 생성 부분에서 match 부분 오류.
           },
         });
         if (!upload) {

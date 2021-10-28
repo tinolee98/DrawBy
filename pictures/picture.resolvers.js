@@ -67,5 +67,15 @@ export default {
       }
       return false;
     },
+    hashtags: async ({ id }) =>
+      client.hashtag.findMany({
+        where: {
+          pictures: {
+            some: {
+              id,
+            },
+          },
+        },
+      }),
   },
 };
