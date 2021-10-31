@@ -3,10 +3,10 @@ import { protectedResolver } from "../users.utils";
 
 export default {
   Mutation: {
-    followUser: protectedResolver(async (_, { id }, { loggedInUser }) => {
-      const isExisted = await client.user.findUnique({
+    followUser: protectedResolver(async (_, { username }, { loggedInUser }) => {
+      const isExisted = await client.user.findFirst({
         where: {
-          id,
+          username,
         },
       });
       if (!isExisted) {
@@ -22,7 +22,7 @@ export default {
         data: {
           following: {
             connect: {
-              id,
+              username,
             },
           },
         },
@@ -37,33 +37,35 @@ export default {
         ok: true,
       };
     }),
-    unfollowUser: protectedResolver(async (_, { id }, { loggedInUser }) => {
-      const isExisted = client.user.findUnique({
-        where: {
-          id,
-        },
-      });
-      if (!isExisted) {
+    unfollowUser: protectedResolver(
+      async (_, { username }, { loggedInUser }) => {
+        const isExisted = client.user.findFirst({
+          where: {
+            username,
+          },
+        });
+        if (!isExisted) {
+          return {
+            ok: false,
+            error: "User not found.",
+          };
+        }
+        const unfollow = await client.user.update({
+          where: {
+            id: loggedInUser.id,
+          },
+          data: { following: { disconnect: { username } } },
+        });
+        if (!unfollow) {
+          return {
+            ok: false,
+            error: "Fail to unfollow.",
+          };
+        }
         return {
-          ok: false,
-          error: "User not found.",
+          ok: true,
         };
       }
-      const unfollow = client.user.update({
-        where: {
-          id: loggedInUser.id,
-        },
-        data: { following: { disconnect: { id } } },
-      });
-      if (!unfollow) {
-        return {
-          ok: false,
-          error: "Fail to unfollow.",
-        };
-      }
-      return {
-        ok: true,
-      };
-    }),
+    ),
   },
 };
