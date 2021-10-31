@@ -3,6 +3,9 @@ import client from "../client";
 export default {
   User: {
     isMe: ({ id }, _, { loggedInUser }) => {
+      if (!loggedInUser) {
+        return false;
+      }
       if (id == loggedInUser.id) {
         return true;
       }
@@ -63,5 +66,30 @@ export default {
         },
       });
     },
+    isFollowing: async ({ id }, _, { loggedInUser }) => {
+      if (!loggedInUser) {
+        return false;
+      }
+      const follow = await client.user.findFirst({
+        where: {
+          id,
+          follower: {
+            some: {
+              id: loggedInUser.id,
+            },
+          },
+        },
+      });
+      if (follow) {
+        return true;
+      }
+      return false;
+    },
+    pictures: async ({ id }) =>
+      client.picture.findMany({
+        where: {
+          userId: id,
+        },
+      }),
   },
 };

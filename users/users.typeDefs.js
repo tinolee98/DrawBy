@@ -9,11 +9,13 @@ export default gql`
     phoneNumber: String
     avatar: String
     bio: String
+    pictures: [Picture]
     isMe: Boolean!
     like2Pic: [Picture]
     followers: [User]
     followings: [User]
     totalFollowers: Int!
     totalFollowings: Int!
+    isFollowing: Boolean!
   }
 `;
