@@ -1,3 +1,5 @@
+a나도 이제 참여하는건가?!~~ㅋㅋ
+
 # 그림은 내 취미: DrawBy ✏️
 
 그림을 취미로 갖고 있는 사람들을 위한 SNS 플랫폼입니다.
@@ -6,7 +8,7 @@ ApolloGraphQL과 Prisma, PostgresQL을 활용하여 구성하였습니다.
 
 _광주과학기술원 GSS 프로그램의 지원을 받아 제작하였습니다._
 
-----------
+---
 
 ## Done List
 
@@ -62,10 +64,9 @@ _광주과학기술원 GSS 프로그램의 지원을 받아 제작하였습니�
 - [x] See Messages (Read와 합칠 필요 O)
 - [x] See Rooms
 
------
+---
+
 ### To Do List
-
-
 
 ### Repactoring 필요한 부분들
 
