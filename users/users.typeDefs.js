@@ -12,6 +12,7 @@ export default gql`
     pictures: [Picture]
     isMe: Boolean!
     like2Pic: [Picture]
+    followHashtags: [Hashtag]
     followers: [User]
     followings: [User]
     totalFollowers: Int!

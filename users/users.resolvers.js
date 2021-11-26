@@ -91,5 +91,15 @@ export default {
           userId: id,
         },
       }),
+    followHashtags: async ({ id }) =>
+      client.hashtag.findMany({
+        where: {
+          users: {
+            some: {
+              id,
+            },
+          },
+        },
+      }),
   },
 };
