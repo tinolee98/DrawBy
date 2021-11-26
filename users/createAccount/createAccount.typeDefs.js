@@ -1,4 +1,4 @@
-import { gql } from "apollo-server-express";
+import { gql } from 'apollo-server-express'
 
 export default gql`
   type CreateAccountResult {
@@ -7,12 +7,13 @@ export default gql`
   }
   type Mutation {
     createAccount(
+      socialId: String
       username: String!
-      password: String!
+      password: String
       email: String!
       phoneNumber: String
       avatar: String
       bio: String
     ): CreateAccountResult!
   }
-`;
+`
