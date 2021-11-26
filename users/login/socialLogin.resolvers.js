@@ -5,31 +5,30 @@ import jwt from 'jsonwebtoken'
 
 export default {
   Mutation: {
-    login: async (_, { username, password }) => {
+    socialLogin: async (_, { socialId, email }) => {
       const user = await client.user.findFirst({
         where: {
-          username,
+          email,
         },
         select: {
           id: true,
           socialId: true,
           username: true,
-          password: true,
         },
       })
       if (!user) {
         return {
           ok: false,
-          error: 'This username is not existed.',
+          error: 'This email is not existed.',
         }
       }
-      if (socialId) {
+      if (!socialId) {
         return {
           ok: false,
-          error: '소셜로그인을 사용중인 계정입니다.',
+          error: '같은 email을 사용하는 다른 계정이 있습니다.',
         }
       }
-      const passwordOk = await bcrypt.compare(password, user.password)
+      const passwordOk = await bcrypt.compare(socialId, user.socialId)
       if (!passwordOk) {
         return {
           ok: false,

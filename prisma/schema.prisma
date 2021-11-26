@@ -8,14 +8,14 @@ datasource db {
 
 generator client {
   provider = "prisma-client-js"
-
 }
 
 model User{
-  id Int @id @default(autoincrement()) 
+  id Int @id @default(autoincrement())
   username String @unique
-  password String
-  email String
+  password String?
+  email String @unique
+  socialId String? @default("")
   phoneNumber String?
   avatar String?
   bio String?
