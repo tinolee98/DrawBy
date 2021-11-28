@@ -7,6 +7,6 @@ export default gql`
     token: String
   }
   type Mutation {
-    socialLogin(socialId: String!, email: String!): SocialLoginResult!
+    socialLogin(socialId: String!, email: String): SocialLoginResult!
   }
 `

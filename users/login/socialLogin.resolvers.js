@@ -6,6 +6,12 @@ import jwt from 'jsonwebtoken'
 export default {
   Mutation: {
     socialLogin: async (_, { socialId, email }) => {
+      if (!email) {
+        return {
+          ok: false,
+          error: 'email not included',
+        }
+      }
       const user = await client.user.findFirst({
         where: {
           email,
