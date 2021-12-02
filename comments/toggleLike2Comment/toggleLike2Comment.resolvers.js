@@ -59,25 +59,25 @@ export default {
         }
         const likeExist = await client.likeNestCom.findUnique({
           where: {
-            userId_commentId: {
+            userId_nestedCommentId: {
               userId: loggedInUser.id,
-              commentId: id,
+              nestedCommentId: id,
             },
           },
         });
         if (!likeExist) {
-          await client.likeCom.create({
+          await client.likeNestCom.create({
             data: {
               userId: loggedInUser.id,
-              commentId: id,
+              nestedCommentId: id,
             },
           });
         } else {
-          await client.likeCom.delete({
+          await client.likeNestCom.delete({
             where: {
-              userId_commentId: {
+              userId_nestedCommentId: {
                 userId: loggedInUser.id,
-                commentId: id,
+                nestedCommentId: id,
               },
             },
           });

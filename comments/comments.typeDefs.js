@@ -10,6 +10,7 @@ export default gql`
     whoLikes: [User]
     totalLike: Int!
     isMine: Boolean!
+    isLiked: Boolean!
     createdAt: String!
     updatedAt: String!
   }
@@ -22,6 +23,7 @@ export default gql`
     whoLikes: [User]
     totalLike: Int!
     isMine: Boolean!
+    isLiked: Boolean!
     createdAt: String!
     updatedAt: String!
   }

@@ -61,6 +61,20 @@ export default {
       const result = users.map((user) => user.user);
       return result;
     },
+    isLiked: async ({ id }, _, { loggedInUser }) => {
+      const isLike = await client.likeCom.findUnique({
+        where: {
+          userId_commentId: {
+            userId: loggedInUser.id,
+            commentId: id,
+          },
+        },
+      });
+      if (isLike) {
+        return true;
+      }
+      return false;
+    },
   },
   NestedComment: {
     author: async ({ id }) => {
@@ -96,6 +110,20 @@ export default {
       });
       const result = users.map((user) => user.user);
       return result;
+    },
+    isLiked: async ({ id }, _, { loggedInUser }) => {
+      const isLike = await client.likeNestCom.findUnique({
+        where: {
+          userId_nestedCommentId: {
+            userId: loggedInUser.id,
+            nestedCommentId: id,
+          },
+        },
+      });
+      if (isLike) {
+        return true;
+      }
+      return false;
     },
   },
 };
