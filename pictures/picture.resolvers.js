@@ -77,5 +77,19 @@ export default {
           },
         },
       }),
+    isBookmarked: async ({ id }, _, { loggedInUser }) => {
+      const bookmark = await client.bookmark.findUnique({
+        where: {
+          userId_pictureId: {
+            userId: loggedInUser.id,
+            pictureId: id,
+          },
+        },
+      });
+      if (bookmark) {
+        return true;
+      }
+      return false;
+    },
   },
 };

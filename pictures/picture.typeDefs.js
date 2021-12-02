@@ -16,6 +16,7 @@ export default gql`
     updatedAt: String!
     isMine: Boolean!
     isLiked: Boolean!
+    isBookmarked: Boolean!
   }
   type LikePic {
     user: User!
