@@ -6,8 +6,19 @@ export default gql`
     payload: String!
     author: User!
     picture: Picture!
+    nestedComments: [NestedComment]
+    whoLikes: [User]
+    totalLike: Int!
+    isMine: Boolean!
+    createdAt: String!
+    updatedAt: String!
+  }
+  type NestedComment {
+    id: Int!
+    payload: String!
+    author: User!
+    picture: Picture!
     comment: Comment
-    nestedComments: [Comment]
     whoLikes: [User]
     totalLike: Int!
     isMine: Boolean!
