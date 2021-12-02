@@ -2,7 +2,16 @@ import client from "../client";
 
 export default {
   Comment: {
-    author: async ({ id }) => {
+    author: async ({ id, commentId }) => {
+      if (commentId) {
+        return await client.nestedComment
+          .findUnique({
+            where: {
+              id,
+            },
+          })
+          .user();
+      }
       return await client.comment
         .findUnique({
           where: {
@@ -11,7 +20,13 @@ export default {
         })
         .user();
     },
-    isMine: async ({ id }, _, { loggedInUser }) => {
+    isMine: async ({ id, commentId }, _, { loggedInUser }) => {
+      if (commentId) {
+        const nestedComment = await client.nestedComment.findUnique({
+          where: { id },
+        });
+        return nestedComment.userId === loggedInUser.id;
+      }
       const comment = await client.comment.findUnique({
         where: {
           id,
@@ -45,6 +60,70 @@ export default {
       });
       const result = users.map((user) => user.user);
       return result;
+    },
+    isLiked: async ({ id }, _, { loggedInUser }) => {
+      const isLike = await client.likeCom.findUnique({
+        where: {
+          userId_commentId: {
+            userId: loggedInUser.id,
+            commentId: id,
+          },
+        },
+      });
+      if (isLike) {
+        return true;
+      }
+      return false;
+    },
+  },
+  NestedComment: {
+    author: async ({ id }) => {
+      return await client.nestedComment
+        .findUnique({
+          where: {
+            id,
+          },
+        })
+        .user();
+    },
+    isMine: async ({ id }, _, { loggedInUser }) => {
+      const nestedComment = await client.nestedComment.findUnique({
+        where: { id },
+      });
+      return nestedComment.userId === loggedInUser.id;
+    },
+    totalLike: async ({ id }) => {
+      return client.likeNestCom.count({
+        where: {
+          nestedCommentId: id,
+        },
+      });
+    },
+    whoLikes: async ({ id }) => {
+      const users = await client.likeNestCom.findMany({
+        where: {
+          nestedCommentId: id,
+        },
+        select: {
+          user: true,
+        },
+      });
+      const result = users.map((user) => user.user);
+      return result;
+    },
+    isLiked: async ({ id }, _, { loggedInUser }) => {
+      const isLike = await client.likeNestCom.findUnique({
+        where: {
+          userId_nestedCommentId: {
+            userId: loggedInUser.id,
+            nestedCommentId: id,
+          },
+        },
+      });
+      if (isLike) {
+        return true;
+      }
+      return false;
     },
   },
 };
