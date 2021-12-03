@@ -23,7 +23,7 @@ export default {
           error: 'This username is not existed.',
         }
       }
-      if (socialId) {
+      if (user.socialId) {
         return {
           ok: false,
           error: '소셜로그인을 사용중인 계정입니다.',
