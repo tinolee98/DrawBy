@@ -21,6 +21,7 @@ export default {
           error: 'username is already existed',
         }
       }
+      // 일반 로그인
       if (password && !socialId) {
         const uglyPW = await bcrypt.hash(password, 10)
         await client.user.create({
@@ -34,12 +35,18 @@ export default {
           },
         })
       }
+
+      // 소셜 로그인
       if (socialId && !password) {
-        const uglyPW = await bcrypt.hash(socialId, 10)
+        const uglyPW = await bcrypt.hash(
+          socialId + process.env.SOCIAL_LOGIN_HASH_KEY,
+          10
+        )
         await client.user.create({
           data: {
             username,
-            socialId: uglyPW,
+            socialId,
+            password: uglyPW,
             email,
             phoneNumber,
             avatar,
