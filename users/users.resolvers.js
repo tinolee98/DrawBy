@@ -90,6 +90,9 @@ export default {
         where: {
           userId: id,
         },
+        orderBy: {
+          createdAt: "desc",
+        },
       }),
     followHashtags: async ({ id }) =>
       client.hashtag.findMany({

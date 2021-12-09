@@ -11,6 +11,9 @@ export default {
             },
           },
         },
+        orderBy: {
+          createdAt: "desc",
+        },
       }),
   },
 };
