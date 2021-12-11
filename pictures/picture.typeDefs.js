@@ -18,6 +18,7 @@ export default gql`
     isMine: Boolean!
     isLiked: Boolean!
     isBookmarked: Boolean!
+    rank: Int
   }
   type LikePic {
     user: User!

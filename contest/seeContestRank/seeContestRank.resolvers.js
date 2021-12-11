@@ -51,6 +51,7 @@ export default {
             hashtags: true,
           },
         });
+        tempPictureInfo.rank = i + 1;
         contestRankedPictures.push(tempPictureInfo);
       }
       return contestRankedPictures;
