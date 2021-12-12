@@ -27,7 +27,6 @@ export default {
                 connectOrCreate: hashtagsObj,
               },
             }),
-            //hastag 생성 부분에서 match 부분 오류.
           },
         });
         if (!upload) {
@@ -38,6 +37,10 @@ export default {
         }
         return {
           ok: true,
+          id: upload.id,
+          file: upload.file,
+          name: upload.name,
+          caption: upload.caption,
         };
       }
     ),
