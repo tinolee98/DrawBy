@@ -18,6 +18,9 @@ export default {
             },
           },
         },
+        orderBy: {
+          createdAt: "desc",
+        },
       });
       const readFeeds = await client.feed.findMany({
         where: {
@@ -32,6 +35,9 @@ export default {
               comments: true,
             },
           },
+        },
+        orderBy: {
+          createdAt: "desc",
         },
       });
       const unreads = unreadFeeds.map((f) => f.picture);
