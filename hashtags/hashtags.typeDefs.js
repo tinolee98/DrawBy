@@ -6,5 +6,6 @@ export default gql`
     hashtagName: String!
     users: [User]
     pictures: [Picture]
+    isFollowing: Boolean!
   }
 `;
