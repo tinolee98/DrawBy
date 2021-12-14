@@ -2,7 +2,7 @@ import client from "../../client";
 
 export default {
   Query: {
-    seeHashtag: async (_, { hashtagName }) => {
+    seeHashtag: async (_, { hashtagName, skip, take }) => {
       return await client.hashtag.findFirst({
         where: {
           hashtagName,
@@ -10,6 +10,8 @@ export default {
         include: {
           pictures: true,
         },
+        skip,
+        take,
       });
     },
   },

@@ -2,7 +2,7 @@ import { gql } from "apollo-server-express";
 
 export default gql`
   type Query {
-    seeFeed: [Picture]
+    seeFeed(skip: Int!, take: Int!): [Picture]
   }
 `;
 
