@@ -1,4 +1,5 @@
 import client from "../client";
+import { findContestHashtag } from "../hashtags/hashtags.utils";
 
 export default {
   User: {
@@ -104,5 +105,19 @@ export default {
           },
         },
       }),
+    contestPictures: async ({ id }) => {
+      const pictures = await client.picture.findMany({
+        where: {
+          userId: id,
+        },
+      });
+      let contestPictures = [];
+      pictures.map((picture) => {
+        if (findContestHashtag(picture.caption)) {
+          contestPictures.push(picture);
+        }
+      });
+      return contestPictures;
+    },
   },
 };

@@ -10,6 +10,7 @@ export default gql`
     avatar: String
     bio: String
     pictures: [Picture]
+    contestPictures: [Picture]
     isMe: Boolean!
     like2Pic: [Picture]
     followHashtags: [Hashtag]
