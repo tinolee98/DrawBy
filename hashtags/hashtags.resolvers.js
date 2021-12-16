@@ -19,5 +19,21 @@ export default {
       }
       return false;
     },
+    pictures: async ({ id }, { skip, take }) => {
+      return await client.picture.findMany({
+        where: {
+          hashtags: {
+            some: {
+              id,
+            },
+          },
+        },
+        skip,
+        take,
+        orderBy: {
+          createdAt: "desc",
+        },
+      });
+    },
   },
 };
