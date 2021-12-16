@@ -69,3 +69,10 @@ _광주과학기술원 GSS 프로그램의 지원을 받아 제작하였습니�
 ### Repactoring 필요한 부분들
 
 1. NestedComment와 Comment의 resolvers가 비슷한 역할을 수행하고 있으므로 하나의 함수로 만들어서 쉽게 배포할 수 있는 형식이 더 좋을 듯.
+2. comment의 해시태그를 구별해내는 부분 추가 필요.
+3. uploadPicture에서 콘테스트 참가 키워드 추가 필요
+4. Prisma에 콘테스트 부분 추가 필요
+   - id
+   - contestName -> 날짜를 의미
+   - 연결된 pictures 목록
+   -

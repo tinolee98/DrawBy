@@ -18,6 +18,7 @@ async function startApolloServer() {
     credentials: true,
   }
   const apollo = new ApolloServer({
+    uploads: false,
     typeDefs,
     resolvers,
     cors: corsOptions,

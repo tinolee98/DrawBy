@@ -9,7 +9,8 @@ export default gql`
     phoneNumber: String
     avatar: String
     bio: String
-    pictures: [Picture]
+    pictures(skip: Int!, take: Int!): [Picture]
+    contestPictures(contestSkip: Int!, contestTake: Int!): [Picture]
     isMe: Boolean!
     like2Pic: [Picture]
     followHashtags: [Hashtag]

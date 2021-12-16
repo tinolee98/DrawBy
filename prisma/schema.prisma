@@ -61,6 +61,7 @@ model Feed {
   picture Picture @relation(fields: [pictureId], references: [id], onDelete: Cascade)
   pictureId Int
   read Boolean
+  createdAt DateTime @default(now())
   @@id([userId, pictureId])
 }
 

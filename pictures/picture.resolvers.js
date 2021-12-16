@@ -1,4 +1,3 @@
-import { introspectionFromSchema } from "graphql";
 import client from "../client";
 
 export default {
