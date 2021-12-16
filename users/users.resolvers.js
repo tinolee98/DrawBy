@@ -86,15 +86,18 @@ export default {
       }
       return false;
     },
-    pictures: async ({ id }) =>
-      client.picture.findMany({
+    pictures: async ({ id }, { skip, take }) => {
+      return await client.picture.findMany({
         where: {
           userId: id,
         },
         orderBy: {
           createdAt: "desc",
         },
-      }),
+        skip,
+        take,
+      });
+    },
     followHashtags: async ({ id }) =>
       client.hashtag.findMany({
         where: {
@@ -105,7 +108,7 @@ export default {
           },
         },
       }),
-    contestPictures: async ({ id }) => {
+    contestPictures: async ({ id }, { contestSkip, contestTake }) => {
       const pictures = await client.picture.findMany({
         where: {
           userId: id,
@@ -117,7 +120,13 @@ export default {
           contestPictures.push(picture);
         }
       });
-      return contestPictures;
+      if (contestSkip > contestPictures.length) {
+        return;
+      }
+      if (contestSkip + contestTake > contestPictures.length) {
+        return contestPictures.slice(contestSkip);
+      }
+      return contestPictures.slice(contestSkip, contestSkip + contestTake);
     },
   },
 };
